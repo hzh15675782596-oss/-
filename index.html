@@ -40,7 +40,7 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            pointer-events: none; /* 让鼠标事件穿透给下层元素，但在JS中我们会单独监听window的移动 */
+            pointer-events: none;
         }
         
         .glass {
@@ -56,15 +56,6 @@
         }
 
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        
-        /* 切换开关样式 */
-        .toggle-checkbox:checked {
-            right: 0;
-            border-color: #00A0E9;
-        }
-        .toggle-checkbox:checked + .toggle-label {
-            background-color: #00A0E9;
-        }
     </style>
 </head>
 <body class="antialiased bg-lightBg text-gray-900 dark:bg-deep dark:text-white transition-colors duration-300">
@@ -136,25 +127,24 @@
                         <a href="#anker" class="px-8 py-3 bg-ankerBlue hover:bg-blue-600 text-white font-bold rounded-full transition-all shadow-lg hover:shadow-ankerBlue/50 flex items-center gap-2" data-i18n="btn_explore">
                             🚀 Explore My Journey
                         </a>
-                        <button class="px-8 py-3 border border-gray-400 hover:border-vitalityYellow hover:text-vitalityYellow dark:border-gray-600 dark:text-gray-300 font-medium rounded-full transition-all" data-i18n="btn_resume">
+                        <!-- 🔥 配置了下载链接的按钮 -->
+                        <a href="assets/resume.pdf" download="HeZihui_Resume.pdf" class="px-8 py-3 border border-gray-400 hover:border-vitalityYellow hover:text-vitalityYellow dark:border-gray-600 dark:text-gray-300 font-medium rounded-full transition-all flex items-center justify-center gap-2" data-i18n="btn_resume">
                             📄 Download CV
-                        </button>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Right: Radar Chart (Simulated) -->
+                <!-- Right: Radar Chart -->
                 <div class="relative flex justify-center items-center h-80 lg:h-[500px] z-10">
-                    <!-- Spinning Rings -->
                     <div class="absolute w-64 h-64 md:w-96 md:h-96 border border-gray-300 dark:border-gray-700 rounded-full animate-spin-slow opacity-60"></div>
                     <div class="absolute w-48 h-48 md:w-72 md:h-72 border border-dashed border-gray-400 dark:border-gray-600 rounded-full animate-spin-slow opacity-60" style="animation-direction: reverse;"></div>
                     
-                    <!-- Center Core -->
-                    <div class="relative z-10 w-32 h-32 glass bg-white/80 dark:bg-white/5 rounded-2xl flex flex-col items-center justify-center text-center shadow-2xl backdrop-blur-xl border border-gray-200 dark:border-ankerBlue/50">
-                        <div class="text-3xl">🦄</div>
-                        <div class="font-bold text-sm mt-2 text-gray-800 dark:text-white">Hexagon<br>Warrior</div>
+                    <!-- 头像区域 -->
+                    <div class="relative z-10 w-32 h-32 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-2xl">
+                        <!-- 这里的图片需要您放入assets文件夹 -->
+                        <img src="assets/avatar.jpg" alt="He Zihui" class="w-full h-full object-cover" onerror="this.src='https://ui-avatars.com/api/?name=He+Zihui&background=00A0E9&color=fff'">
                     </div>
 
-                    <!-- Floating Skills Points -->
                     <div class="absolute top-0 transform -translate-y-1/2 bg-white dark:bg-[#1e1e1e] px-3 py-1 rounded border border-ankerBlue text-xs text-ankerBlue shadow-lg font-bold">
                         AI Ops
                     </div>
@@ -171,7 +161,6 @@
 
     <!-- 3. Feature: Anker (Dark/Light Optimized) -->
     <section id="anker" class="py-24 relative overflow-hidden transition-colors duration-300">
-        <!-- Dynamic Background -->
         <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-white dark:from-[#0f172a] dark:to-black z-0"></div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -218,7 +207,68 @@
         </div>
     </section>
 
-    <!-- 4. Image Playground (New Feature: Image Upload) -->
+    <!-- 4. Projects (Images Configured) -->
+    <section id="projects" class="py-24 bg-[#151515] text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-12 text-center" data-i18n="nav_portfolio">SELECTED WORKS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Project 1: Tooth -->
+                <div class="bg-[#1e1e1e] rounded-xl overflow-hidden group hover:-translate-y-2 transition duration-300">
+                    <div class="h-48 bg-gray-700 relative overflow-hidden">
+                        <!-- 请放入 assets/project_tooth.jpg -->
+                        <img src="assets/project_tooth.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/400x300/333/FFF?text=Strategy'">
+                    </div>
+                    <div class="p-5">
+                        <div class="text-xs text-vitalityYellow font-bold mb-1">NATIONAL AWARD 🏆</div>
+                        <h3 class="text-lg font-bold mb-2">Narrative Script</h3>
+                        <p class="text-gray-400 text-xs">Nice Toothpaste Marketing Campaign</p>
+                    </div>
+                </div>
+
+                <!-- Project 2: Canva -->
+                <div class="bg-[#1e1e1e] rounded-xl overflow-hidden group hover:-translate-y-2 transition duration-300">
+                    <div class="h-48 bg-gray-700 relative overflow-hidden">
+                        <!-- 请放入 assets/project_canva.jpg -->
+                        <img src="assets/project_canva.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/400x300/003/FFF?text=Marketing'">
+                    </div>
+                    <div class="p-5">
+                        <div class="text-xs text-vitalityYellow font-bold mb-1">PROVINCIAL AWARD</div>
+                        <h3 class="text-lg font-bold mb-2">Canva Campaign</h3>
+                        <p class="text-gray-400 text-xs">Reverse Marketing Strategy</p>
+                    </div>
+                </div>
+
+                <!-- Project 3: HBN -->
+                <div class="bg-[#1e1e1e] rounded-xl overflow-hidden group hover:-translate-y-2 transition duration-300">
+                    <div class="h-48 bg-gray-700 relative overflow-hidden">
+                         <!-- 请放入 assets/project_hbn.jpg -->
+                        <img src="assets/project_hbn.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/400x300/531/FFF?text=Copywriting'">
+                    </div>
+                    <div class="p-5">
+                        <div class="text-xs text-ankerBlue font-bold mb-1">62.5K+ VIEWS</div>
+                        <h3 class="text-lg font-bold mb-2">HBN Copywriting</h3>
+                        <p class="text-gray-400 text-xs">Social Media Content Strategy</p>
+                    </div>
+                </div>
+
+                <!-- Project 4: AI -->
+                <div class="bg-[#1e1e1e] rounded-xl overflow-hidden group hover:-translate-y-2 transition duration-300">
+                    <div class="h-48 bg-gray-700 relative overflow-hidden">
+                         <!-- 请放入 assets/project_ai.jpg -->
+                        <img src="assets/project_ai.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/400x300/050/FFF?text=AI+Art'">
+                    </div>
+                    <div class="p-5">
+                        <div class="text-xs text-green-400 font-bold mb-1">AIGC / COMIC</div>
+                        <h3 class="text-lg font-bold mb-2">Nano Banana Pro</h3>
+                        <p class="text-gray-400 text-xs">AI Generated Visual Storytelling</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Image Playground (New Feature: Image Upload) -->
     <section id="playground" class="py-24 bg-gray-50 dark:bg-[#18181b] transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-10">
@@ -237,8 +287,6 @@
 
                 <!-- Preview Grid -->
                 <div id="image-preview-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8">
-                    <!-- Images will be injected here via JS -->
-                    <!-- Example Placeholder -->
                     <div class="aspect-square bg-gray-200 dark:bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 text-xs">
                         Preview Area
                     </div>
@@ -247,10 +295,21 @@
         </div>
     </section>
 
-    <!-- 5. Footer -->
+    <!-- 6. Footer -->
     <footer class="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-black py-12 text-center transition-colors duration-300">
         <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="footer_title">Ready to Create the Next Big Thing?</h2>
-        <div class="text-gray-500 text-xs mt-6">
+        
+        <!-- 🔥 底部下载链接区 -->
+        <div class="flex justify-center gap-4 mt-6 mb-8 flex-wrap px-4">
+            <a href="assets/resume.pdf" download="HeZihui_Resume.pdf" class="text-xs font-mono text-ankerBlue hover:underline border border-ankerBlue px-4 py-2 rounded hover:bg-ankerBlue hover:text-white transition">
+                ⬇️ Download Resume (PDF)
+            </a>
+            <a href="assets/portfolio.pdf" download="HeZihui_Portfolio.pdf" class="text-xs font-mono text-vitalityYellow hover:underline border border-vitalityYellow px-4 py-2 rounded hover:bg-vitalityYellow hover:text-black transition">
+                ⬇️ Download Portfolio (PDF)
+            </a>
+        </div>
+        
+        <div class="text-gray-500 text-xs">
             © 2026 He Zihui. Engineered with AI.
         </div>
     </footer>
@@ -280,7 +339,6 @@
         let particles = [];
         let mouse = { x: null, y: null };
 
-        // Resize Canvas
         function resize() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -288,12 +346,11 @@
         }
         window.addEventListener('resize', resize);
 
-        // Particle Class
         class Particle {
             constructor(x, y) {
                 this.x = x;
                 this.y = y;
-                this.baseX = x; // Original position
+                this.baseX = x;
                 this.baseY = y;
                 this.size = Math.random() * 2 + 1;
                 this.density = (Math.random() * 30) + 1;
@@ -306,23 +363,20 @@
                 ctx.fill();
             }
             update() {
-                // Physics: Mouse interaction
                 let dx = mouse.x - this.x;
                 let dy = mouse.y - this.y;
                 let distance = Math.sqrt(dx * dx + dy * dy);
                 let forceDirectionX = dx / distance;
                 let forceDirectionY = dy / distance;
-                let maxDistance = 150; // Interaction radius
+                let maxDistance = 150;
                 let force = (maxDistance - distance) / maxDistance;
                 let directionX = forceDirectionX * force * this.density;
                 let directionY = forceDirectionY * force * this.density;
 
                 if (distance < maxDistance) {
-                    // Push away
                     this.x -= directionX * 3; 
                     this.y -= directionY * 3;
                 } else {
-                    // Return to base
                     if (this.x !== this.baseX) {
                         let dx = this.x - this.baseX;
                         this.x -= dx / 10;
@@ -337,7 +391,6 @@
 
         function initParticles() {
             particles = [];
-            // Create a grid of particles
             let numberOfParticles = (canvas.width * canvas.height) / 9000;
             for (let i = 0; i < numberOfParticles; i++) {
                 let x = Math.random() * canvas.width;
@@ -355,7 +408,6 @@
             requestAnimationFrame(animateParticles);
         }
 
-        // Mouse listeners
         window.addEventListener('mousemove', (e) => {
             mouse.x = e.x;
             mouse.y = e.y;
@@ -365,7 +417,6 @@
             mouse.y = undefined;
         });
 
-        // Initialize
         resize();
         animateParticles();
 
@@ -430,11 +481,10 @@
             currentLang = currentLang === 'en' ? 'cn' : 'en';
             document.getElementById('lang-btn').innerText = currentLang === 'en' ? 'EN' : '中';
             
-            // Apply text
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if(translations[currentLang][key]) {
-                    el.innerHTML = translations[currentLang][key]; // innerHTML allows spans
+                    el.innerHTML = translations[currentLang][key];
                 }
             });
         }
