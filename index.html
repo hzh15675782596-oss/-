@@ -206,4 +206,283 @@
             <div class="mb-16 relative pl-8 md:pl-0">
                 <div class="absolute -left-[9px] md:left-1/2 md:-ml-[9px] w-4 h-4 rounded-full bg-gray-400 dark:bg-gray-600 ring-4 ring-white dark:ring-night z-10"></div>
                 <div class="md:flex md:justify-between items-center md:flex-row-reverse group">
-                    <div class="md:w-1/2 md:pl-12 md:text-left mb-
+                    <div class="md:w-1/2 md:pl-12 md:text-left mb-2 md:mb-0">
+                        <span class="text-gray-500 font-mono text-sm">2023.06 - 2025.06</span>
+                    </div>
+                    <div class="md:w-1/2 md:pr-12 md:text-right">
+                         <div class="glass p-6 rounded-xl hover:border-gray-400 transition duration-300">
+                            <h3 class="text-xl font-bold mb-1">Ticknet Studio</h3>
+                            <p class="text-xs text-gray-500 uppercase tracking-wider" data-key="role_ticknet">Operations Team Lead</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed" data-key="desc_ticknet">
+                                Managed cross-functional teams. Increased online engagement by 30% through data-driven content strategies.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 3: Newspaper -->
+            <div class="relative pl-8 md:pl-0">
+                <div class="absolute -left-[9px] md:left-1/2 md:-ml-[9px] w-4 h-4 rounded-full bg-gray-400 dark:bg-gray-600 ring-4 ring-white dark:ring-night z-10"></div>
+                <div class="md:flex md:justify-between items-center group">
+                     <div class="md:w-1/2 md:pr-12 md:text-right mb-2 md:mb-0">
+                        <span class="text-gray-500 font-mono text-sm">2024.07 - 2024.09</span>
+                    </div>
+                    <div class="md:w-1/2 md:pl-12">
+                        <div class="glass p-6 rounded-xl hover:border-gray-400 transition duration-300">
+                            <h3 class="text-xl font-bold mb-1" data-key="title_paper">Changsha Evening News</h3>
+                            <p class="text-xs text-gray-500 uppercase tracking-wider" data-key="role_paper">Journalist Intern</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed" data-key="desc_paper">
+                                Front-line reporting and editorial production. Honed rapid information processing skills.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 3. Projects Showcase (Click to Expand) -->
+    <section id="projects" class="py-32 px-4 max-w-7xl mx-auto">
+        <h2 class="font-serif text-3xl md:text-4xl text-center mb-6" data-key="section_projects">Selected Works</h2>
+        <p class="text-center text-gray-500 mb-16 text-sm" data-key="projects_hint">Click on a card to reveal details</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <!-- Project 1 -->
+            <div class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-xl" onclick="openModal('tooth')">
+                <img src="assets/project_tooth.jpg" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100" onerror="this.src='https://placehold.co/600x800/222/FFF?text=Strategy'">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-6">
+                    <span class="text-accent text-xs font-bold tracking-widest mb-1">NATIONAL AWARD</span>
+                    <h3 class="text-white text-xl font-serif">Nice Toothpaste</h3>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-xl" onclick="openModal('canva')">
+                <img src="assets/project_canva.jpg" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100" onerror="this.src='https://placehold.co/600x800/003/FFF?text=Marketing'">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-6">
+                    <span class="text-accent text-xs font-bold tracking-widest mb-1">CAMPAIGN</span>
+                    <h3 class="text-white text-xl font-serif">Canva Love AI</h3>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-xl" onclick="openModal('hbn')">
+                <img src="assets/project_hbn.jpg" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100" onerror="this.src='https://placehold.co/600x800/531/FFF?text=Copywriting'">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-6">
+                    <span class="text-primary text-xs font-bold tracking-widest mb-1">60W+ VIEWS</span>
+                    <h3 class="text-white text-xl font-serif">HBN Skincare</h3>
+                </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-xl" onclick="openModal('ai')">
+                <img src="assets/project_ai.jpg" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100" onerror="this.src='https://placehold.co/600x800/050/FFF?text=AIGC'">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-6">
+                    <span class="text-green-400 text-xs font-bold tracking-widest mb-1">NANO BANANA</span>
+                    <h3 class="text-white text-xl font-serif">AI Storytelling</h3>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Modal (弹窗) -->
+    <div id="project-modal" class="fixed inset-0 z-50 flex items-center justify-center pointer-events-none opacity-0 transition-opacity duration-300">
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal()"></div>
+        
+        <!-- Content -->
+        <div id="modal-content" class="relative bg-white dark:bg-gray-900 w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl transform scale-95 transition-all duration-300 pointer-events-auto border border-gray-200 dark:border-gray-700">
+            <button onclick="closeModal()" class="absolute top-4 right-4 p-2 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-red-500 hover:text-white transition z-10">✕</button>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2">
+                <!-- Image Side -->
+                <div class="h-64 md:h-auto bg-gray-200 relative">
+                    <img id="m-img" src="" class="absolute inset-0 w-full h-full object-cover">
+                </div>
+                <!-- Text Side -->
+                <div class="p-8 md:p-12">
+                    <div id="m-tag" class="text-xs font-bold text-primary tracking-widest mb-2">TAG</div>
+                    <h3 id="m-title" class="text-2xl font-serif font-bold mb-4 dark:text-white text-gray-900">Title</h3>
+                    <p id="m-desc" class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-6">Description...</p>
+                    
+                    <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                        <h4 class="text-xs font-bold uppercase mb-2">Key Highlights</h4>
+                        <ul id="m-list" class="text-sm text-gray-500 dark:text-gray-400 space-y-2 list-disc pl-4">
+                            <!-- JS injected -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-12 text-center text-xs text-gray-500 border-t border-gray-200 dark:border-gray-800 glass">
+        <p>© 2026 He Zihui. Crafted with Human Creativity & AI Efficiency.</p>
+        <div class="mt-4 flex justify-center gap-4">
+            <a href="mailto:15675782596@163.com" class="hover:text-primary transition">Email</a>
+            <a href="assets/resume.pdf" download class="hover:text-primary transition">Resume</a>
+        </div>
+    </footer>
+
+    <!-- Logic -->
+    <script>
+        // --- 1. Data Source (Multilingual) ---
+        let lang = 'en';
+        const txt = {
+            en: {
+                nav_home: "HOME", nav_timeline: "TIMELINE", nav_projects: "PROJECTS",
+                hero_subtitle: "The Portfolio of He Zihui",
+                hero_title_1: "Weaving", hero_title_2: "Intelligence",
+                hero_desc: "Connecting human creativity with AI efficiency. From Journalism to AI Operations, I engineer culture with data and soul.",
+                btn_explore: "EXPLORE JOURNEY", btn_resume: "DOWNLOAD CV",
+                section_timeline: "Career Timeline",
+                role_anker: "AI Operations Intern",
+                desc_anker: "Lead the 'AI Culture Revolution'. Designed gamified systems ('PP Gold Rush') and leveraged AIGC tools to boost efficiency by 75%.",
+                role_ticknet: "Operations Team Lead",
+                desc_ticknet: "Managed cross-functional teams. Increased online engagement by 30% through data-driven strategies.",
+                title_paper: "Changsha Evening News",
+                role_paper: "Journalist Intern",
+                desc_paper: "Front-line reporting and editorial production. Honed rapid information processing skills.",
+                section_projects: "Selected Works",
+                projects_hint: "Click on a card to reveal details"
+            },
+            cn: {
+                nav_home: "首页", nav_timeline: "经历", nav_projects: "作品",
+                hero_subtitle: "何姿慧的个人作品集",
+                hero_title_1: "编织", hero_title_2: "智慧",
+                hero_desc: "连接人文创意与 AI 效能。从新闻学到 AI 运营，我用数据与灵魂构建企业文化。",
+                btn_explore: "探索旅程", btn_resume: "下载简历",
+                section_timeline: "职业时间轴",
+                role_anker: "AI 运营实习生",
+                desc_anker: "主导“AI文化革命”。设计游戏化系统（PP淘金计划）并利用 AIGC 工具将整体效率提升 75%。",
+                role_ticknet: "运营组组长",
+                desc_ticknet: "统筹跨部门协作。通过数据驱动的内容策略使线上互动量提升 30%。",
+                title_paper: "长沙晚报",
+                role_paper: "全媒体记者实习",
+                desc_paper: "一线采编与编辑制作。磨练了快速信息处理与写作能力。",
+                section_projects: "精选作品",
+                projects_hint: "点击卡片查看项目详情"
+            }
+        };
+
+        const projectData = {
+            tooth: {
+                img: "assets/project_tooth.jpg",
+                tag: "NATIONAL AWARD 🏆",
+                title: { en: "Nice Toothpaste Script", cn: "纳爱斯牙膏叙事脚本" },
+                desc: { 
+                    en: "A narrative audio script designed based on 3 rounds of user research. We solved the pain point that 'whiteness' is hard to show on radio by using sound design to convey confidence.", 
+                    cn: "基于3轮用户调研设计的叙事音频脚本。我们通过声音设计传达“自信”，解决了广播难以展示牙膏“美白”效果的痛点。" 
+                },
+                list: {
+                    en: ["1st Prize in National Advertising Comp", "Reached 100k+ students", "Innovative Audio Strategy"],
+                    cn: ["大广赛全国一等奖", "覆盖 10w+ 学生群体", "创新听觉营销策略"]
+                }
+            },
+            canva: {
+                img: "assets/project_canva.jpg",
+                tag: "MARKETING CAMPAIGN",
+                title: { en: "Canva: Love AI Brain", cn: "Canva: 就要恋AI脑" },
+                desc: {
+                    en: "Reverse marketing strategy turning the slang 'Love Brain' into 'Passion for AI'. Included a full ROI prediction model.",
+                    cn: "逆向营销策略，将贬义词“恋爱脑”重构为“对AI的极致投入”。包含完整的 ROI 预估模型。"
+                },
+                list: {
+                    en: ["Provincial 1st Prize", "Targeting Gen-Z", "Full ROI Analysis"],
+                    cn: ["省级一等奖", "精准定位 Z 世代", "完整投入产出分析"]
+                }
+            },
+            hbn: {
+                img: "assets/project_hbn.jpg",
+                tag: "SOCIAL MEDIA",
+                title: { en: "HBN Skincare Copy", cn: "HBN 成分党文案" },
+                desc: {
+                    en: "Translating hard chemical ingredients into emotional stories. 'The weight of a promise is carved in the flowing eyes...'",
+                    cn: "将晦涩的化学成分翻译成感人的故事。“诺言的分量，刻在流转的眼波里……”"
+                },
+                list: {
+                    en: ["62.5k+ Views per post", "High Engagement", "Emotional Storytelling"],
+                    cn: ["单篇浏览 6.25w+", "高互动率", "情感化叙事"]
+                }
+            },
+            ai: {
+                img: "assets/project_ai.jpg",
+                tag: "AIGC & COMIC",
+                title: { en: "Nano Banana Pro", cn: "Nano Banana AI 漫画" },
+                desc: {
+                    en: "Visual storytelling project entirely generated by AI (Midjourney/Stable Diffusion) and refined in PS. Used for corporate culture propagation.",
+                    cn: "完全由 AI (Midjourney) 生成并经 PS 精修的视觉叙事项目。用于企业内部文化传播。"
+                },
+                list: {
+                    en: ["1100+ Internal Views", "85% Adoption Rate", "Efficiency +75%"],
+                    cn: ["内部浏览 1100+", "85% 采纳率", "效率提升 75%"]
+                }
+            }
+        };
+
+        // --- 2. Interaction Logic ---
+        
+        // Language Toggle
+        function toggleLang() {
+            lang = lang === 'en' ? 'cn' : 'en';
+            document.getElementById('lang-btn').innerText = lang === 'en' ? 'CN' : 'EN';
+            renderText();
+        }
+
+        function renderText() {
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (txt[lang][key]) el.innerText = txt[lang][key];
+            });
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        }
+        // Load Theme
+        if (localStorage.getItem('theme') === 'light') document.documentElement.classList.remove('dark');
+
+        // Modal Logic
+        const modal = document.getElementById('project-modal');
+        const modalContent = document.getElementById('modal-content');
+        
+        function openModal(id) {
+            const data = projectData[id];
+            // Fill Content
+            document.getElementById('m-img').src = data.img;
+            document.getElementById('m-tag').innerText = data.tag;
+            document.getElementById('m-title').innerText = data.title[lang];
+            document.getElementById('m-desc').innerText = data.desc[lang];
+            
+            const list = document.getElementById('m-list');
+            list.innerHTML = '';
+            data.list[lang].forEach(item => {
+                const li = document.createElement('li');
+                li.innerText = item;
+                list.appendChild(li);
+            });
+
+            // Show
+            modal.classList.remove('pointer-events-none', 'opacity-0');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+        }
+
+        function closeModal() {
+            modal.classList.add('pointer-events-none', 'opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+        }
+
+        // Initialize Text
+        renderText();
+    </script>
+</body>
+</html>
