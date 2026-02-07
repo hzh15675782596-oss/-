@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>He Zihui | Visionary Strategist</title>
-    <!-- Tailwind CSS -->
+    <title>He Zihui | Aurora Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Inter:wght@300;400;600&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Manrope:wght@200;400;600&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -15,19 +13,28 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'Noto Sans SC', 'sans-serif'],
+                        sans: ['Manrope', 'sans-serif'],
                         serif: ['Cinzel', 'serif'],
                     },
                     colors: {
-                        night: '#050505',
-                        day: '#F0F2F5',
-                        primary: '#00A0E9', // Anker Blue
-                        accent: '#FFD700', // Gold
+                        night: '#020617',
+                        glass: 'rgba(255, 255, 255, 0.05)',
+                        glassLight: 'rgba(255, 255, 255, 0.6)',
                     },
                     animation: {
-                        'spin-slow': 'spin 60s linear infinite',
-                        'spin-reverse': 'spin 80s linear infinite reverse',
-                        'pulse-slow': 'pulse 5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'aurora': 'aurora 20s linear infinite',
+                        'rainbow': 'rainbow 10s ease infinite alternate',
+                    },
+                    keyframes: {
+                        aurora: {
+                            '0%': { transform: 'rotate(0deg) scale(1)' },
+                            '50%': { transform: 'rotate(180deg) scale(1.2)' },
+                            '100%': { transform: 'rotate(360deg) scale(1)' },
+                        },
+                        rainbow: {
+                            '0%': { backgroundPosition: '0% 50%' },
+                            '100%': { backgroundPosition: '100% 50%' },
+                        }
                     }
                 }
             }
@@ -35,454 +42,307 @@
     </script>
 
     <style>
-        /* 1. 背景：极光星轨系统 */
-        .aurora-container {
+        /* 1. 极光背景 (Night) */
+        .bg-aurora {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            overflow: hidden;
-            pointer-events: none;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: conic-gradient(
+                from 0deg, 
+                #0f172a 0%, 
+                #1e1b4b 25%, 
+                #059669 40%, 
+                #4f46e5 60%, 
+                #0f172a 100%
+            );
+            filter: blur(80px);
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            animation: aurora 30s linear infinite;
         }
+        .dark .bg-aurora { opacity: 0.8; }
 
-        .aurora-ring {
+        /* 2. 彩虹背景 (Day) */
+        .bg-rainbow {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(120deg, #fdfbf7 0%, #e0f2fe 30%, #fce7f3 60%, #fff1f2 100%);
+            z-index: -2;
+            opacity: 1;
+            transition: opacity 1.5s ease;
+        }
+        /* 彩虹流光层 */
+        .rainbow-sheen {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            filter: blur(60px); /* 极光般的朦胧感 */
-            opacity: 0.5;
-            transition: opacity 0.5s ease;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, rgba(255,0,0,0.1), rgba(255,154,0,0.1), rgba(208,222,33,0.1), rgba(79,220,74,0.1), rgba(63,218,216,0.1), rgba(47,201,226,0.1), rgba(28,127,238,0.1), rgba(95,21,242,0.1), rgba(186,12,248,0.1));
+            background-size: 200% 200%;
+            filter: blur(60px);
+            animation: rainbow 8s ease infinite;
         }
+        .dark .bg-rainbow { opacity: 0; }
 
-        /* 暗夜模式极光 */
-        html.dark .ring-1 {
-            width: 120vh; height: 120vh;
-            background: conic-gradient(from 0deg, transparent 0%, #001233 20%, #00A0E9 40%, transparent 60%);
-            animation: spin 60s linear infinite;
+        /* 3. 玻璃卡片 */
+        .glass-panel {
+            background: var(--glassLight);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.4);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
         }
-        html.dark .ring-2 {
-            width: 150vh; height: 150vh;
-            background: conic-gradient(from 180deg, transparent 0%, #3a0ca3 20%, #7209b7 40%, transparent 60%);
-            animation: spin 90s linear infinite reverse;
+        .dark .glass-panel {
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
         }
-        
-        /* 白昼模式极光 (晨曦色) */
-        html:not(.dark) .ring-1 {
-            width: 120vh; height: 120vh;
-            background: conic-gradient(from 0deg, transparent 0%, #e2e8f0 20%, #bfdbfe 40%, transparent 60%);
-            animation: spin 60s linear infinite;
-            opacity: 0.8;
-        }
-        html:not(.dark) .ring-2 {
-            width: 150vh; height: 150vh;
-            background: conic-gradient(from 180deg, transparent 0%, #fef3c7 20%, #fde68a 40%, transparent 60%);
-            animation: spin 90s linear infinite reverse;
-            opacity: 0.8;
-        }
-
-        /* 2. 磨砂玻璃通用样式 */
-        .glass {
-            background: rgba(20, 20, 20, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        html:not(.dark) .glass {
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        /* 3. 模态框动画 */
-        .modal-enter { opacity: 0; transform: scale(0.95); }
-        .modal-enter-active { opacity: 1; transform: scale(1); transition: all 0.3s ease-out; }
-        .modal-exit { opacity: 1; transform: scale(1); }
-        .modal-exit-active { opacity: 0; transform: scale(0.95); transition: all 0.2s ease-in; }
 
         /* 隐藏滚动条 */
         .no-scrollbar::-webkit-scrollbar { display: none; }
+        
+        /* 字体平滑 */
+        body { -webkit-font-smoothing: antialiased; }
     </style>
 </head>
-<body class="bg-day text-gray-800 dark:bg-night dark:text-gray-100 transition-colors duration-500 overflow-x-hidden">
+<body class="text-slate-800 dark:text-slate-200 transition-colors duration-1000 overflow-x-hidden">
 
-    <!-- 背景：极光星轨 -->
-    <div class="aurora-container">
-        <div class="aurora-ring ring-1"></div>
-        <div class="aurora-ring ring-2"></div>
-    </div>
+    <!-- Background Layers -->
+    <div class="bg-rainbow"><div class="rainbow-sheen"></div></div>
+    <div class="bg-aurora"></div>
 
-    <!-- 导航栏 -->
-    <nav class="fixed top-0 w-full z-40 px-6 py-4 glass border-b-0 transition-all duration-300">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="font-serif text-2xl font-bold tracking-widest hover:text-primary transition cursor-pointer" onclick="window.scrollTo(0,0)">
-                HZ·HUI
-            </div>
-            
-            <div class="flex items-center gap-6">
-                <!-- 菜单 -->
-                <div class="hidden md:flex gap-8 text-xs font-bold tracking-[0.2em]">
-                    <a href="#home" class="hover:text-primary transition" data-key="nav_home">HOME</a>
-                    <a href="#timeline" class="hover:text-primary transition" data-key="nav_timeline">TIMELINE</a>
-                    <a href="#projects" class="hover:text-primary transition" data-key="nav_projects">PROJECTS</a>
-                </div>
-
-                <!-- 功能按钮 -->
-                <div class="flex items-center gap-3 border-l border-gray-300 dark:border-gray-700 pl-6">
-                    <button onclick="toggleLang()" class="text-xs font-bold px-2 py-1 border border-transparent hover:border-gray-500 rounded transition" id="lang-btn">CN</button>
-                    <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-white/10 transition">
-                        <span class="dark:hidden">🌙</span>
-                        <span class="hidden dark:block">☀️</span>
-                    </button>
-                </div>
-            </div>
+    <!-- Navigation & Toggle -->
+    <nav class="fixed top-0 w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-difference text-white">
+        <div class="font-serif text-2xl font-bold tracking-widest">HZ.</div>
+        
+        <div class="flex items-center gap-4">
+            <!-- Theme Toggle Button -->
+            <button onclick="toggleTheme()" class="group relative px-4 py-2 rounded-full border border-white/30 hover:bg-white/10 transition overflow-hidden">
+                <span class="relative z-10 text-xs tracking-widest font-bold uppercase" id="theme-text">Daydream</span>
+                <div class="absolute inset-0 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 opacity-0 group-hover:opacity-20 transition duration-500"></div>
+            </button>
         </div>
     </nav>
 
-    <!-- 1. Hero Section -->
-    <section id="home" class="min-h-screen flex flex-col justify-center items-center text-center px-4 relative pt-20">
-        <div class="space-y-8 animate-fade-in-up">
-            <p class="text-xs md:text-sm tracking-[0.4em] text-primary uppercase font-bold" data-key="hero_subtitle">
-                The Portfolio of He Zihui
-            </p>
-            <h1 class="font-serif text-5xl md:text-8xl leading-tight bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-blue-600 to-gray-900 dark:from-white dark:via-blue-400 dark:to-gray-400">
-                <span data-key="hero_title_1">Weaving</span><br>
-                <span data-key="hero_title_2">Intelligence</span>
+    <!-- 1. Hero: Identity -->
+    <section class="min-h-screen flex flex-col justify-center items-center text-center px-4 relative">
+        <div class="space-y-6 max-w-4xl z-10">
+            <h2 class="text-sm md:text-base tracking-[0.5em] uppercase opacity-70 animate-pulse">Portfolio 2026</h2>
+            <h1 class="font-serif text-5xl md:text-8xl leading-tight">
+                He Zihui
             </h1>
-            <p class="max-w-xl mx-auto text-gray-600 dark:text-gray-400 font-light leading-relaxed text-sm md:text-base" data-key="hero_desc">
-                Connecting human creativity with AI efficiency. <br>
-                From Journalism to AI Operations, I engineer culture with data and soul.
+            <p class="font-serif italic text-2xl md:text-3xl opacity-80">
+                Bridging Human Creativity with AI Efficiency
             </p>
-            
-            <div class="flex gap-4 justify-center pt-8">
-                <a href="#timeline" class="px-8 py-3 bg-primary text-white rounded-full font-bold text-sm tracking-widest hover:bg-blue-600 transition shadow-lg shadow-blue-500/30" data-key="btn_explore">
-                    EXPLORE JOURNEY
-                </a>
-                <a href="assets/resume.pdf" download class="px-8 py-3 border border-gray-400 dark:border-gray-600 rounded-full font-bold text-sm tracking-widest hover:border-primary hover:text-primary transition" data-key="btn_resume">
-                    DOWNLOAD CV
-                </a>
-            </div>
+            <div class="h-1 w-24 bg-gradient-to-r from-blue-400 to-emerald-400 mx-auto rounded-full my-8"></div>
+            <p class="max-w-xl mx-auto text-sm md:text-base leading-relaxed opacity-80">
+                A <strong>Master's Candidate in Journalism</strong> (Jinan Univ) who speaks the language of <strong>Data & AI</strong>. 
+                <br>Currently transforming corporate culture at <strong>Anker Innovations</strong>.
+            </p>
         </div>
         
-        <!-- 滚动指引 -->
-        <div class="absolute bottom-12 animate-bounce">
-            <span class="text-xs tracking-widest opacity-50">SCROLL</span>
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 animate-bounce cursor-pointer" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
+            <svg class="w-6 h-6 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
         </div>
     </section>
 
-    <!-- 2. Internship Timeline (垂直星轨) -->
-    <section id="timeline" class="py-32 px-4 max-w-4xl mx-auto">
-        <h2 class="font-serif text-3xl md:text-4xl text-center mb-20" data-key="section_timeline">Career Timeline</h2>
-        
-        <div class="relative border-l-2 border-gray-200 dark:border-gray-800 ml-4 md:ml-1/2">
+    <!-- 2. About Me -->
+    <section id="about" class="py-32 px-6 max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="relative">
+                <!-- Avatar Frame -->
+                <div class="aspect-[3/4] rounded-full overflow-hidden border border-white/20 relative z-10">
+                    <img src="assets/avatar.jpg" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop'">
+                </div>
+                <!-- Decorative Circle -->
+                <div class="absolute top-0 -left-10 w-full h-full rounded-full border border-dashed border-white/10 animate-[spin_20s_linear_infinite] z-0"></div>
+            </div>
             
-            <!-- Item 1: Anker -->
-            <div class="mb-16 relative pl-8 md:pl-0">
-                <!-- Dot -->
-                <div class="absolute -left-[9px] md:left-1/2 md:-ml-[9px] w-4 h-4 rounded-full bg-primary ring-4 ring-white dark:ring-night z-10"></div>
+            <div class="space-y-8">
+                <h2 class="font-serif text-4xl">About Me</h2>
+                <p class="leading-relaxed opacity-80">
+                    I exist at the intersection of <strong>liberal arts and technology</strong>. With a background in Journalism, I know how to tell a story. With my experience in Operations and AIGC, I know how to make that story efficient, scalable, and data-driven.
+                </p>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="glass-panel p-6 rounded-xl">
+                        <h3 class="font-serif text-xl mb-2 text-blue-500">Tech</h3>
+                        <p class="text-sm opacity-70">Nano Banana Pro, Midjourney, Python (Basic), Excel Analysis</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl">
+                        <h3 class="font-serif text-xl mb-2 text-emerald-500">Soft Skills</h3>
+                        <p class="text-sm opacity-70">Gamification Strategy, Content Planning, Cross-functional Comms</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Timeline: The Journey -->
+    <section class="py-32 px-6 relative">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-serif text-4xl text-center mb-20">My Journey</h2>
+            
+            <div class="relative border-l border-white/20 ml-6 md:ml-1/2 space-y-20">
                 
-                <div class="md:flex md:justify-between items-center group">
-                    <!-- Date (Left on Desktop) -->
-                    <div class="md:w-1/2 md:pr-12 md:text-right mb-2 md:mb-0">
-                        <span class="text-primary font-mono text-sm">2025.10 - 2026.02</span>
-                    </div>
-                    <!-- Content (Right on Desktop) -->
-                    <div class="md:w-1/2 md:pl-12">
-                        <div class="glass p-6 rounded-xl hover:border-primary/50 transition duration-300">
-                            <h3 class="text-xl font-bold mb-1">Anker Innovations (ATIT)</h3>
-                            <p class="text-xs text-primary mb-3 uppercase tracking-wider" data-key="role_anker">AI Operations Intern</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed" data-key="desc_anker">
-                                Lead the "AI Culture Revolution". Designed gamified systems ("PP Gold Rush") and leveraged AIGC tools to boost efficiency by 75%.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Item 2: Ticknet -->
-            <div class="mb-16 relative pl-8 md:pl-0">
-                <div class="absolute -left-[9px] md:left-1/2 md:-ml-[9px] w-4 h-4 rounded-full bg-gray-400 dark:bg-gray-600 ring-4 ring-white dark:ring-night z-10"></div>
-                <div class="md:flex md:justify-between items-center md:flex-row-reverse group">
-                    <div class="md:w-1/2 md:pl-12 md:text-left mb-2 md:mb-0">
-                        <span class="text-gray-500 font-mono text-sm">2023.06 - 2025.06</span>
-                    </div>
-                    <div class="md:w-1/2 md:pr-12 md:text-right">
-                         <div class="glass p-6 rounded-xl hover:border-gray-400 transition duration-300">
-                            <h3 class="text-xl font-bold mb-1">Ticknet Studio</h3>
-                            <p class="text-xs text-gray-500 uppercase tracking-wider" data-key="role_ticknet">Operations Team Lead</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed" data-key="desc_ticknet">
-                                Managed cross-functional teams. Increased online engagement by 30% through data-driven content strategies.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Item 3: Newspaper -->
-            <div class="relative pl-8 md:pl-0">
-                <div class="absolute -left-[9px] md:left-1/2 md:-ml-[9px] w-4 h-4 rounded-full bg-gray-400 dark:bg-gray-600 ring-4 ring-white dark:ring-night z-10"></div>
-                <div class="md:flex md:justify-between items-center group">
-                     <div class="md:w-1/2 md:pr-12 md:text-right mb-2 md:mb-0">
-                        <span class="text-gray-500 font-mono text-sm">2024.07 - 2024.09</span>
-                    </div>
-                    <div class="md:w-1/2 md:pl-12">
-                        <div class="glass p-6 rounded-xl hover:border-gray-400 transition duration-300">
-                            <h3 class="text-xl font-bold mb-1" data-key="title_paper">Changsha Evening News</h3>
-                            <p class="text-xs text-gray-500 uppercase tracking-wider" data-key="role_paper">Journalist Intern</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed" data-key="desc_paper">
-                                Front-line reporting and editorial production. Honed rapid information processing skills.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- 3. Projects Showcase (Click to Expand) -->
-    <section id="projects" class="py-32 px-4 max-w-7xl mx-auto">
-        <h2 class="font-serif text-3xl md:text-4xl text-center mb-6" data-key="section_projects">Selected Works</h2>
-        <p class="text-center text-gray-500 mb-16 text-sm" data-key="projects_hint">Click on a card to reveal details</p>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            <!-- Project 1 -->
-            <div class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-xl" onclick="openModal('tooth')">
-                <img src="assets/project_tooth.jpg" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100" onerror="this.src='https://placehold.co/600x800/222/FFF?text=Strategy'">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-6">
-                    <span class="text-accent text-xs font-bold tracking-widest mb-1">NATIONAL AWARD</span>
-                    <h3 class="text-white text-xl font-serif">Nice Toothpaste</h3>
-                </div>
-            </div>
-
-            <!-- Project 2 -->
-            <div class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-xl" onclick="openModal('canva')">
-                <img src="assets/project_canva.jpg" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100" onerror="this.src='https://placehold.co/600x800/003/FFF?text=Marketing'">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-6">
-                    <span class="text-accent text-xs font-bold tracking-widest mb-1">CAMPAIGN</span>
-                    <h3 class="text-white text-xl font-serif">Canva Love AI</h3>
-                </div>
-            </div>
-
-            <!-- Project 3 -->
-            <div class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-xl" onclick="openModal('hbn')">
-                <img src="assets/project_hbn.jpg" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100" onerror="this.src='https://placehold.co/600x800/531/FFF?text=Copywriting'">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-6">
-                    <span class="text-primary text-xs font-bold tracking-widest mb-1">60W+ VIEWS</span>
-                    <h3 class="text-white text-xl font-serif">HBN Skincare</h3>
-                </div>
-            </div>
-
-            <!-- Project 4 -->
-            <div class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-xl" onclick="openModal('ai')">
-                <img src="assets/project_ai.jpg" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100" onerror="this.src='https://placehold.co/600x800/050/FFF?text=AIGC'">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-6">
-                    <span class="text-green-400 text-xs font-bold tracking-widest mb-1">NANO BANANA</span>
-                    <h3 class="text-white text-xl font-serif">AI Storytelling</h3>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Modal (弹窗) -->
-    <div id="project-modal" class="fixed inset-0 z-50 flex items-center justify-center pointer-events-none opacity-0 transition-opacity duration-300">
-        <!-- Overlay -->
-        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal()"></div>
-        
-        <!-- Content -->
-        <div id="modal-content" class="relative bg-white dark:bg-gray-900 w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl transform scale-95 transition-all duration-300 pointer-events-auto border border-gray-200 dark:border-gray-700">
-            <button onclick="closeModal()" class="absolute top-4 right-4 p-2 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-red-500 hover:text-white transition z-10">✕</button>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2">
-                <!-- Image Side -->
-                <div class="h-64 md:h-auto bg-gray-200 relative">
-                    <img id="m-img" src="" class="absolute inset-0 w-full h-full object-cover">
-                </div>
-                <!-- Text Side -->
-                <div class="p-8 md:p-12">
-                    <div id="m-tag" class="text-xs font-bold text-primary tracking-widest mb-2">TAG</div>
-                    <h3 id="m-title" class="text-2xl font-serif font-bold mb-4 dark:text-white text-gray-900">Title</h3>
-                    <p id="m-desc" class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-6">Description...</p>
+                <!-- 1. Anker (Highlight) -->
+                <div class="relative pl-12 md:pl-0 group">
+                    <div class="absolute left-[-5px] md:left-1/2 md:-ml-[5px] top-0 w-3 h-3 bg-blue-500 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.8)]"></div>
                     
-                    <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
-                        <h4 class="text-xs font-bold uppercase mb-2">Key Highlights</h4>
-                        <ul id="m-list" class="text-sm text-gray-500 dark:text-gray-400 space-y-2 list-disc pl-4">
-                            <!-- JS injected -->
-                        </ul>
+                    <div class="md:flex md:justify-between md:items-start md:flex-row-reverse">
+                        <div class="md:w-1/2 md:pl-12 mb-2 md:mb-0">
+                            <span class="text-xs font-bold tracking-widest text-blue-400">2025.10 – PRESENT</span>
+                        </div>
+                        <div class="md:w-1/2 md:pr-12 md:text-right">
+                            <h3 class="text-2xl font-serif font-bold">Anker Innovations</h3>
+                            <p class="text-sm opacity-60 mb-4">ATIT Operations Intern</p>
+                            <div class="glass-panel p-6 rounded-xl text-left hover:border-blue-500/50 transition duration-500">
+                                <ul class="space-y-3 text-sm opacity-80 list-disc pl-4">
+                                    <li><strong>Culture Revolution:</strong> Designed "PP Gold Rush" gamification, boosting engagement.</li>
+                                    <li><strong>AIGC Pioneer:</strong> Used AI (Nano Banana) for comics/video, increasing efficiency by 75%.</li>
+                                    <li><strong>Community:</strong> Built internal AI community, raising NSS satisfaction to 70%.</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <!-- 2. Changsha Evening News -->
+                <div class="relative pl-12 md:pl-0 group">
+                    <div class="absolute left-[-5px] md:left-1/2 md:-ml-[5px] top-0 w-3 h-3 bg-gray-400 rounded-full"></div>
+                    
+                    <div class="md:flex md:justify-between md:items-start">
+                        <div class="md:w-1/2 md:pr-12 md:text-right mb-2 md:mb-0">
+                            <span class="text-xs font-bold tracking-widest opacity-60">2024.07 – 2024.09</span>
+                        </div>
+                        <div class="md:w-1/2 md:pl-12">
+                            <h3 class="text-xl font-serif font-bold">Changsha Evening News</h3>
+                            <p class="text-sm opacity-60 mb-4">Journalist Intern</p>
+                            <p class="text-sm opacity-80 leading-relaxed">
+                                Front-line reporting and rapid content production. Developed a strict standard for accuracy and speed in a fast-paced media environment.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Ticknet Studio -->
+                <div class="relative pl-12 md:pl-0 group">
+                    <div class="absolute left-[-5px] md:left-1/2 md:-ml-[5px] top-0 w-3 h-3 bg-gray-400 rounded-full"></div>
+                    
+                    <div class="md:flex md:justify-between md:items-start md:flex-row-reverse">
+                        <div class="md:w-1/2 md:pl-12 mb-2 md:mb-0">
+                            <span class="text-xs font-bold tracking-widest opacity-60">2023.06 – 2025.06</span>
+                        </div>
+                        <div class="md:w-1/2 md:pr-12 md:text-right">
+                            <h3 class="text-xl font-serif font-bold">Ticknet Studio</h3>
+                            <p class="text-sm opacity-60 mb-4">Operations Team Lead</p>
+                            <p class="text-sm opacity-80 leading-relaxed">
+                                Led a cross-functional team. Increased online interaction by 30% through data-driven operational strategies.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Footer -->
-    <footer class="py-12 text-center text-xs text-gray-500 border-t border-gray-200 dark:border-gray-800 glass">
-        <p>© 2026 He Zihui. Crafted with Human Creativity & AI Efficiency.</p>
-        <div class="mt-4 flex justify-center gap-4">
-            <a href="mailto:15675782596@163.com" class="hover:text-primary transition">Email</a>
-            <a href="assets/resume.pdf" download class="hover:text-primary transition">Resume</a>
+    <!-- 4. Projects: The Aurora Showcase -->
+    <section class="py-32 px-6">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="font-serif text-4xl text-center mb-16">Selected Works</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Project 1: Toothpaste -->
+                <div class="group relative aspect-[3/4] overflow-hidden rounded-2xl glass-panel hover:-translate-y-2 transition duration-500">
+                    <img src="assets/project_tooth.jpg" class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-100 transition duration-500" onerror="this.src='https://placehold.co/400x600/111/FFF?text=Strategy'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90 p-6 flex flex-col justify-end">
+                        <div class="text-yellow-400 text-xs font-bold tracking-widest mb-2">NATIONAL 1ST PRIZE</div>
+                        <h3 class="text-white text-xl font-serif font-bold mb-2">Nice Toothpaste</h3>
+                        <p class="text-gray-300 text-xs leading-relaxed opacity-0 group-hover:opacity-100 transition duration-500 delay-100">
+                            Audio narrative script. Used sound design to convey "confidence" instead of visual whiteness.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Project 2: Canva -->
+                <div class="group relative aspect-[3/4] overflow-hidden rounded-2xl glass-panel hover:-translate-y-2 transition duration-500">
+                    <img src="assets/project_canva.jpg" class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-100 transition duration-500" onerror="this.src='https://placehold.co/400x600/222/FFF?text=Campaign'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90 p-6 flex flex-col justify-end">
+                        <div class="text-blue-400 text-xs font-bold tracking-widest mb-2">PROVINCIAL AWARD</div>
+                        <h3 class="text-white text-xl font-serif font-bold mb-2">Canva "Love AI"</h3>
+                        <p class="text-gray-300 text-xs leading-relaxed opacity-0 group-hover:opacity-100 transition duration-500 delay-100">
+                            Reverse marketing strategy. Rebranded "Love Brain" to "Passion for AI Creation".
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Project 3: HBN -->
+                <div class="group relative aspect-[3/4] overflow-hidden rounded-2xl glass-panel hover:-translate-y-2 transition duration-500">
+                    <img src="assets/project_hbn.jpg" class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-100 transition duration-500" onerror="this.src='https://placehold.co/400x600/333/FFF?text=Copywriting'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90 p-6 flex flex-col justify-end">
+                        <div class="text-pink-400 text-xs font-bold tracking-widest mb-2">60K+ VIEWS</div>
+                        <h3 class="text-white text-xl font-serif font-bold mb-2">HBN Copywriting</h3>
+                        <p class="text-gray-300 text-xs leading-relaxed opacity-0 group-hover:opacity-100 transition duration-500 delay-100">
+                            Emotional storytelling. Translating chemical ingredients into poetic life moments.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Project 4: AI -->
+                <div class="group relative aspect-[3/4] overflow-hidden rounded-2xl glass-panel hover:-translate-y-2 transition duration-500">
+                    <img src="assets/project_ai.jpg" class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-100 transition duration-500" onerror="this.src='https://placehold.co/400x600/444/FFF?text=AIGC'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90 p-6 flex flex-col justify-end">
+                        <div class="text-emerald-400 text-xs font-bold tracking-widest mb-2">NANO BANANA</div>
+                        <h3 class="text-white text-xl font-serif font-bold mb-2">AI Visual Story</h3>
+                        <p class="text-gray-300 text-xs leading-relaxed opacity-0 group-hover:opacity-100 transition duration-500 delay-100">
+                            Generated by Midjourney, refined by design. Used for Anker's internal culture propagation.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Footer: Connect -->
+    <footer class="py-20 px-6 border-t border-white/10 relative overflow-hidden">
+        <div class="max-w-4xl mx-auto text-center z-10 relative">
+            <h2 class="font-serif text-3xl mb-8">Ready to create something extraordinary?</h2>
+            
+            <div class="flex flex-wrap justify-center gap-6 mb-12">
+                <a href="assets/resume.pdf" download class="px-8 py-3 rounded-full border border-current hover:bg-white hover:text-black transition duration-300 font-bold tracking-widest text-sm">
+                    DOWNLOAD RESUME
+                </a>
+                <a href="assets/portfolio.pdf" download class="px-8 py-3 rounded-full border border-current hover:bg-white hover:text-black transition duration-300 font-bold tracking-widest text-sm">
+                    DOWNLOAD PORTFOLIO
+                </a>
+            </div>
+
+            <div class="space-y-2 text-sm opacity-60">
+                <p>Email: 15675782596@163.com</p>
+                <p>Phone: 156-7578-2596</p>
+                <p class="mt-8 text-xs">© 2026 He Zihui. Designed with Aurora & Code.</p>
+            </div>
         </div>
     </footer>
 
-    <!-- Logic -->
     <script>
-        // --- 1. Data Source (Multilingual) ---
-        let lang = 'en';
-        const txt = {
-            en: {
-                nav_home: "HOME", nav_timeline: "TIMELINE", nav_projects: "PROJECTS",
-                hero_subtitle: "The Portfolio of He Zihui",
-                hero_title_1: "Weaving", hero_title_2: "Intelligence",
-                hero_desc: "Connecting human creativity with AI efficiency. From Journalism to AI Operations, I engineer culture with data and soul.",
-                btn_explore: "EXPLORE JOURNEY", btn_resume: "DOWNLOAD CV",
-                section_timeline: "Career Timeline",
-                role_anker: "AI Operations Intern",
-                desc_anker: "Lead the 'AI Culture Revolution'. Designed gamified systems ('PP Gold Rush') and leveraged AIGC tools to boost efficiency by 75%.",
-                role_ticknet: "Operations Team Lead",
-                desc_ticknet: "Managed cross-functional teams. Increased online engagement by 30% through data-driven strategies.",
-                title_paper: "Changsha Evening News",
-                role_paper: "Journalist Intern",
-                desc_paper: "Front-line reporting and editorial production. Honed rapid information processing skills.",
-                section_projects: "Selected Works",
-                projects_hint: "Click on a card to reveal details"
-            },
-            cn: {
-                nav_home: "首页", nav_timeline: "经历", nav_projects: "作品",
-                hero_subtitle: "何姿慧的个人作品集",
-                hero_title_1: "编织", hero_title_2: "智慧",
-                hero_desc: "连接人文创意与 AI 效能。从新闻学到 AI 运营，我用数据与灵魂构建企业文化。",
-                btn_explore: "探索旅程", btn_resume: "下载简历",
-                section_timeline: "职业时间轴",
-                role_anker: "AI 运营实习生",
-                desc_anker: "主导“AI文化革命”。设计游戏化系统（PP淘金计划）并利用 AIGC 工具将整体效率提升 75%。",
-                role_ticknet: "运营组组长",
-                desc_ticknet: "统筹跨部门协作。通过数据驱动的内容策略使线上互动量提升 30%。",
-                title_paper: "长沙晚报",
-                role_paper: "全媒体记者实习",
-                desc_paper: "一线采编与编辑制作。磨练了快速信息处理与写作能力。",
-                section_projects: "精选作品",
-                projects_hint: "点击卡片查看项目详情"
-            }
-        };
-
-        const projectData = {
-            tooth: {
-                img: "assets/project_tooth.jpg",
-                tag: "NATIONAL AWARD 🏆",
-                title: { en: "Nice Toothpaste Script", cn: "纳爱斯牙膏叙事脚本" },
-                desc: { 
-                    en: "A narrative audio script designed based on 3 rounds of user research. We solved the pain point that 'whiteness' is hard to show on radio by using sound design to convey confidence.", 
-                    cn: "基于3轮用户调研设计的叙事音频脚本。我们通过声音设计传达“自信”，解决了广播难以展示牙膏“美白”效果的痛点。" 
-                },
-                list: {
-                    en: ["1st Prize in National Advertising Comp", "Reached 100k+ students", "Innovative Audio Strategy"],
-                    cn: ["大广赛全国一等奖", "覆盖 10w+ 学生群体", "创新听觉营销策略"]
-                }
-            },
-            canva: {
-                img: "assets/project_canva.jpg",
-                tag: "MARKETING CAMPAIGN",
-                title: { en: "Canva: Love AI Brain", cn: "Canva: 就要恋AI脑" },
-                desc: {
-                    en: "Reverse marketing strategy turning the slang 'Love Brain' into 'Passion for AI'. Included a full ROI prediction model.",
-                    cn: "逆向营销策略，将贬义词“恋爱脑”重构为“对AI的极致投入”。包含完整的 ROI 预估模型。"
-                },
-                list: {
-                    en: ["Provincial 1st Prize", "Targeting Gen-Z", "Full ROI Analysis"],
-                    cn: ["省级一等奖", "精准定位 Z 世代", "完整投入产出分析"]
-                }
-            },
-            hbn: {
-                img: "assets/project_hbn.jpg",
-                tag: "SOCIAL MEDIA",
-                title: { en: "HBN Skincare Copy", cn: "HBN 成分党文案" },
-                desc: {
-                    en: "Translating hard chemical ingredients into emotional stories. 'The weight of a promise is carved in the flowing eyes...'",
-                    cn: "将晦涩的化学成分翻译成感人的故事。“诺言的分量，刻在流转的眼波里……”"
-                },
-                list: {
-                    en: ["62.5k+ Views per post", "High Engagement", "Emotional Storytelling"],
-                    cn: ["单篇浏览 6.25w+", "高互动率", "情感化叙事"]
-                }
-            },
-            ai: {
-                img: "assets/project_ai.jpg",
-                tag: "AIGC & COMIC",
-                title: { en: "Nano Banana Pro", cn: "Nano Banana AI 漫画" },
-                desc: {
-                    en: "Visual storytelling project entirely generated by AI (Midjourney/Stable Diffusion) and refined in PS. Used for corporate culture propagation.",
-                    cn: "完全由 AI (Midjourney) 生成并经 PS 精修的视觉叙事项目。用于企业内部文化传播。"
-                },
-                list: {
-                    en: ["1100+ Internal Views", "85% Adoption Rate", "Efficiency +75%"],
-                    cn: ["内部浏览 1100+", "85% 采纳率", "效率提升 75%"]
-                }
-            }
-        };
-
-        // --- 2. Interaction Logic ---
-        
-        // Language Toggle
-        function toggleLang() {
-            lang = lang === 'en' ? 'cn' : 'en';
-            document.getElementById('lang-btn').innerText = lang === 'en' ? 'CN' : 'EN';
-            renderText();
-        }
-
-        function renderText() {
-            document.querySelectorAll('[data-key]').forEach(el => {
-                const key = el.getAttribute('data-key');
-                if (txt[lang][key]) el.innerText = txt[lang][key];
-            });
-        }
-
-        // Theme Toggle
         function toggleTheme() {
-            document.documentElement.classList.toggle('dark');
-            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-        }
-        // Load Theme
-        if (localStorage.getItem('theme') === 'light') document.documentElement.classList.remove('dark');
-
-        // Modal Logic
-        const modal = document.getElementById('project-modal');
-        const modalContent = document.getElementById('modal-content');
-        
-        function openModal(id) {
-            const data = projectData[id];
-            // Fill Content
-            document.getElementById('m-img').src = data.img;
-            document.getElementById('m-tag').innerText = data.tag;
-            document.getElementById('m-title').innerText = data.title[lang];
-            document.getElementById('m-desc').innerText = data.desc[lang];
+            const html = document.documentElement;
+            const text = document.getElementById('theme-text');
             
-            const list = document.getElementById('m-list');
-            list.innerHTML = '';
-            data.list[lang].forEach(item => {
-                const li = document.createElement('li');
-                li.innerText = item;
-                list.appendChild(li);
-            });
-
-            // Show
-            modal.classList.remove('pointer-events-none', 'opacity-0');
-            modalContent.classList.remove('scale-95');
-            modalContent.classList.add('scale-100');
+            if (html.classList.contains('dark')) {
+                // Switch to Day (Rainbow)
+                html.classList.remove('dark');
+                text.innerText = "Night Mode";
+            } else {
+                // Switch to Night (Aurora)
+                html.classList.add('dark');
+                text.innerText = "Daydream";
+            }
         }
-
-        function closeModal() {
-            modal.classList.add('pointer-events-none', 'opacity-0');
-            modalContent.classList.remove('scale-100');
-            modalContent.classList.add('scale-95');
-        }
-
-        // Initialize Text
-        renderText();
     </script>
 </body>
 </html>
