@@ -1,369 +1,209 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="dark scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>He Zihui | Visionary Strategist</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Inter:wght@300;400;600&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
     
-    <style>
-        :root {
-            --cursor-x: 50vw;
-            --cursor-y: 50vh;
-        }
-        
-        body {
-            background-color: #050505; /* 深夜黑 */
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            cursor: none; /* 隐藏默认鼠标，使用自定义光标 */
-        }
-
-        /* 字体优化 */
-        .font-serif-display {
-            font-family: 'Cinzel', serif; /* 高级衬线体标题 */
-        }
-
-        /* 1. 交互式极光背景 */
-        .aurora-blob {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.6;
-            z-index: 0;
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); /* 平滑跟随 */
-            mix-blend-mode: screen;
-            pointer-events: none;
-        }
-        .blob-1 { background: #4f46e5; width: 600px; height: 600px; top: -10%; left: -10%; animation: breathe 10s infinite alternate; }
-        .blob-2 { background: #0ea5e9; width: 500px; height: 500px; bottom: -10%; right: -10%; animation: breathe 12s infinite alternate-reverse; }
-        .blob-3 { background: #d946ef; width: 400px; height: 400px; top: 40%; left: 40%; opacity: 0.4; }
-
-        @keyframes breathe {
-            0% { transform: scale(1); opacity: 0.5; }
-            100% { transform: scale(1.2); opacity: 0.7; }
-        }
-
-        /* 2. 星光年轮 (随滚动旋转) */
-        #star-rings {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 150vmax; /* 足够大覆盖屏幕 */
-            height: 150vmax;
-            transform: translate(-50%, -50%);
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.15;
-            background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23FFF' stroke-width='0.5' stroke-dasharray='4 8'%3E%3Ccircle cx='400' cy='400' r='100' /%3E%3Ccircle cx='400' cy='400' r='150' /%3E%3Ccircle cx='400' cy='400' r='200' /%3E%3Ccircle cx='400' cy='400' r='250' /%3E%3Ccircle cx='400' cy='400' r='300' /%3E%3Ccircle cx='400' cy='400' r='350' /%3E%3C/g%3E%3C/svg%3E");
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            transition: transform 0.1s linear; /* JS控制旋转 */
-        }
-
-        /* 3. 高级磨砂玻璃卡片 */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-        
-        /* 4. 自定义光标 */
-        .custom-cursor {
-            position: fixed;
-            top: 0; 
-            left: 0;
-            width: 20px;
-            height: 20px;
-            border: 1px solid rgba(255,255,255,0.8);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s, background-color 0.3s;
-            mix-blend-mode: difference;
-        }
-        .custom-cursor.hovered {
-            width: 50px;
-            height: 50px;
-            background-color: rgba(255,255,255,0.1);
-            backdrop-filter: blur(2px);
-            border-color: transparent;
-        }
-        .cursor-dot {
-            position: fixed;
-            top: 0; left: 0;
-            width: 4px; height: 4px;
-            background: white;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            transform: translate(-50%, -50%);
-        }
-
-        /* 滚动出现动画 */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* 隐藏滚动条 */
-        ::-webkit-scrollbar { width: 0px; }
-    </style>
-</head>
-<body>
-
-    <!-- 光标 -->
-    <div id="cursor" class="custom-cursor"></div>
-    <div id="cursor-dot" class="cursor-dot"></div>
-
-    <!-- 背景层 -->
-    <div class="aurora-blob blob-1"></div>
-    <div class="aurora-blob blob-2"></div>
-    <div id="interactive-blob" class="aurora-blob blob-3"></div> <!-- 跟随鼠标 -->
-    <div id="star-rings"></div> <!-- 旋转年轮 -->
-
-    <!-- 内容层 -->
-    <div class="relative z-10">
-
-        <!-- 导航 -->
-        <nav class="fixed top-0 w-full p-8 flex justify-between items-center mix-blend-difference z-50">
-            <div class="font-serif-display text-2xl font-bold tracking-widest cursor-scale">HZ·HUI</div>
-            <div class="hidden md:flex gap-8 text-sm font-light tracking-widest">
-                <a href="#home" class="hover:text-gray-400 transition cursor-scale">HOME</a>
-                <a href="#anker" class="hover:text-gray-400 transition cursor-scale">ANKER</a>
-                <a href="#work" class="hover:text-gray-400 transition cursor-scale">WORK</a>
-            </div>
-        </nav>
-
-        <!-- 1. Hero Section -->
-        <section id="home" class="h-screen flex flex-col justify-center items-center text-center px-4 relative">
-            <div class="reveal">
-                <p class="text-xs md:text-sm tracking-[0.3em] text-gray-400 mb-6 uppercase">Portfolio 2026</p>
-                <h1 class="font-serif-display text-5xl md:text-8xl lg:text-9xl mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-600">
-                    Bridging<br>Creativity
-                </h1>
-                <p class="font-light text-gray-300 max-w-lg mx-auto leading-relaxed mb-10">
-                    With AI Efficiency. <br>
-                    <span class="text-gray-500">He Zihui · Digital Storyteller</span>
-                </p>
-                <div class="flex flex-col md:flex-row gap-6 justify-center">
-                    <a href="assets/resume.pdf" download="HeZihui_Resume.pdf" class="cursor-scale px-8 py-3 border border-white/20 hover:bg-white hover:text-black transition duration-500 rounded-full text-sm tracking-widest uppercase">
-                        Download CV
-                    </a>
-                </div>
-            </div>
-            
-            <!-- 滚动提示 -->
-            <div class="absolute bottom-10 animate-bounce">
-                <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-            </div>
-        </section>
-
-        <!-- 2. The Anker Story -->
-        <section id="anker" class="min-h-screen py-32 px-4 md:px-20 relative">
-            <div class="max-w-6xl mx-auto">
-                <div class="flex flex-col md:flex-row gap-16 items-start">
-                    <!-- 左侧标题 -->
-                    <div class="md:w-1/3 sticky top-32 reveal">
-                        <div class="text-blue-400 text-xs font-bold tracking-widest mb-4 flex items-center gap-2">
-                            <span class="w-8 h-[1px] bg-blue-400"></span> ANKER INNOVATIONS
-                        </div>
-                        <h2 class="font-serif-display text-4xl md:text-5xl leading-tight mb-8">
-                            The AI Culture<br>Revolution
-                        </h2>
-                        <p class="text-gray-400 leading-relaxed font-light mb-8">
-                            "I didn't just operate; I evangelized. At Anker, I turned 'Artificial Intelligence' into 'Actionable Inspiration'."
-                        </p>
-                        <!-- 数据 -->
-                        <div class="grid grid-cols-2 gap-8 border-t border-white/10 pt-8">
-                            <div>
-                                <div class="text-3xl font-serif-display">85%</div>
-                                <div class="text-xs text-gray-500 uppercase mt-1">Adoption Rate</div>
-                            </div>
-                            <div>
-                                <div class="text-3xl font-serif-display">1100+</div>
-                                <div class="text-xs text-gray-500 uppercase mt-1">Avg Views</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 右侧卡片流 -->
-                    <div class="md:w-2/3 space-y-12">
-                        <!-- Card 1 -->
-                        <div class="glass-panel p-10 rounded-none md:rounded-3xl reveal cursor-scale group hover:bg-white/5 transition duration-500">
-                            <div class="text-6xl mb-6 opacity-30 group-hover:opacity-100 transition duration-500 group-hover:scale-110 transform origin-left">🎮</div>
-                            <h3 class="text-2xl font-serif-display mb-4">Gamification Strategy</h3>
-                            <p class="text-gray-400 font-light leading-relaxed">
-                                Designed "PP Gold Rush". Transformed boring KPIs into an interactive treasure hunt, making learning addictive across departments.
-                            </p>
-                        </div>
-                        
-                        <!-- Card 2 (Core) -->
-                        <div class="glass-panel p-10 rounded-none md:rounded-3xl reveal cursor-scale group hover:bg-white/5 transition duration-500 border-blue-500/30">
-                            <div class="text-6xl mb-6 opacity-30 group-hover:opacity-100 transition duration-500 text-blue-400">🤖</div>
-                            <h3 class="text-2xl font-serif-display mb-4">AIGC Productization</h3>
-                            <p class="text-gray-400 font-light leading-relaxed">
-                                Leveraged <strong>Nano Banana Pro</strong> to produce cinematic comics and videos. We stopped "telling" people to use AI, and started "showing" them how cool it is.
-                            </p>
-                        </div>
-
-                        <!-- Card 3 -->
-                        <div class="glass-panel p-10 rounded-none md:rounded-3xl reveal cursor-scale group hover:bg-white/5 transition duration-500">
-                            <div class="text-6xl mb-6 opacity-30 group-hover:opacity-100 transition duration-500">💬</div>
-                            <h3 class="text-2xl font-serif-display mb-4">Community Ecosystem</h3>
-                            <p class="text-gray-400 font-light leading-relaxed">
-                                Built the internal AI community from scratch. Workshops, showcases, and a safe space for "stupid questions" drove the NSS to 70%.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. Selected Works (Gallery) -->
-        <section id="work" class="py-32 px-4 md:px-10">
-            <h2 class="text-center font-serif-display text-4xl mb-20 reveal">Selected Works</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 max-w-7xl mx-auto">
-                <!-- Project 1 -->
-                <div class="group relative aspect-[4/3] overflow-hidden reveal cursor-scale">
-                    <img src="assets/project_tooth.jpg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110 opacity-70 group-hover:opacity-100 grayscale group-hover:grayscale-0" onerror="this.src='https://images.unsplash.com/photo-1558522195-e1201b090344?q=80&w=2070&auto=format&fit=crop'">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-100 md:opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end p-8">
-                        <div class="text-xs text-yellow-500 tracking-widest mb-2">NATIONAL AWARD</div>
-                        <h3 class="text-2xl font-serif-display">Nice Toothpaste</h3>
-                        <p class="text-sm text-gray-400 mt-2">Audio Narrative Strategy</p>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="group relative aspect-[4/3] overflow-hidden reveal cursor-scale">
-                    <img src="assets/project_canva.jpg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110 opacity-70 group-hover:opacity-100 grayscale group-hover:grayscale-0" onerror="this.src='https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1974&auto=format&fit=crop'">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-100 md:opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end p-8">
-                        <div class="text-xs text-yellow-500 tracking-widest mb-2">CAMPAIGN</div>
-                        <h3 class="text-2xl font-serif-display">Canva Love AI</h3>
-                        <p class="text-sm text-gray-400 mt-2">Reverse Marketing Model</p>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="group relative aspect-[4/3] overflow-hidden reveal cursor-scale">
-                    <img src="assets/project_hbn.jpg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110 opacity-70 group-hover:opacity-100 grayscale group-hover:grayscale-0" onerror="this.src='https://images.unsplash.com/photo-1596462502278-27bfdd403348?q=80&w=2070&auto=format&fit=crop'">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-100 md:opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end p-8">
-                        <div class="text-xs text-blue-400 tracking-widest mb-2">COPYWRITING</div>
-                        <h3 class="text-2xl font-serif-display">HBN Skincare</h3>
-                        <p class="text-sm text-gray-400 mt-2">Emotional Data Translation</p>
-                    </div>
-                </div>
-
-                <!-- Project 4 (AI) -->
-                <div class="group relative aspect-[4/3] overflow-hidden reveal cursor-scale">
-                    <img src="assets/project_ai.jpg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110 opacity-70 group-hover:opacity-100 grayscale group-hover:grayscale-0" onerror="this.src='https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1974&auto=format&fit=crop'">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-100 md:opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end p-8">
-                        <div class="text-xs text-purple-400 tracking-widest mb-2">AIGC ART</div>
-                        <h3 class="text-2xl font-serif-display">Nano Banana</h3>
-                        <p class="text-sm text-gray-400 mt-2">Visual Storytelling with Midjourney</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Image Playground (Upload) -->
-        <section class="py-32 px-4 text-center reveal">
-            <h2 class="font-serif-display text-2xl mb-8">Visual Playground</h2>
-            <div class="border border-white/10 hover:border-white/30 transition-colors p-12 max-w-2xl mx-auto rounded-xl cursor-scale dashed-border" onclick="document.getElementById('fileInput').click()">
-                <input type="file" id="fileInput" class="hidden" accept="image/*" onchange="previewImage(event)">
-                <p class="text-gray-500 mb-2">Click to upload Image</p>
-                <div id="preview-area" class="mt-8 grid grid-cols-3 gap-4"></div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="py-20 text-center border-t border-white/5">
-            <h2 class="font-serif-display text-3xl mb-8 reveal">Ready to Create?</h2>
-            <div class="flex justify-center gap-6 mb-12 text-sm tracking-widest">
-                <a href="mailto:15675782596@163.com" class="hover:text-blue-400 transition cursor-scale">EMAIL</a>
-                <a href="#" class="hover:text-blue-400 transition cursor-scale">LINKEDIN</a>
-                <a href="assets/resume.pdf" download="HeZihui_Resume.pdf" class="text-blue-400 hover:text-white transition cursor-scale">DOWNLOAD RESUME</a>
-            </div>
-            <p class="text-xs text-gray-600">© 2026 He Zihui. Designed with Soul & AI.</p>
-        </footer>
-
-    </div>
-
     <script>
-        // 1. Interactive Aurora & Cursor
-        const blob = document.getElementById('interactive-blob');
-        const cursor = document.getElementById('cursor');
-        const cursorDot = document.getElementById('cursor-dot');
-        const cursorTargets = document.querySelectorAll('.cursor-scale');
-
-        window.addEventListener('mousemove', (e) => {
-            const x = e.clientX;
-            const y = e.clientY;
-            
-            // Aurora Blob follows mouse slowly
-            blob.animate({
-                left: `${x}px`,
-                top: `${y}px`
-            }, { duration: 3000, fill: "forwards" });
-
-            // Custom Cursor follows immediately
-            cursor.style.left = `${x}px`;
-            cursor.style.top = `${y}px`;
-            cursorDot.style.left = `${x}px`;
-            cursorDot.style.top = `${y}px`;
-        });
-
-        // Cursor Hover Effects
-        cursorTargets.forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
-        });
-
-        // 2. Star Rings Rotation on Scroll
-        const rings = document.getElementById('star-rings');
-        window.addEventListener('scroll', () => {
-            const scrolled = window.scrollY;
-            // Rotate .1 degree per pixel
-            rings.style.transform = `translate(-50%, -50%) rotate(${scrolled * 0.05}deg)`;
-        });
-
-        // 3. Reveal on Scroll Animation
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans SC', 'sans-serif'],
+                        serif: ['Cinzel', 'serif'],
+                    },
+                    colors: {
+                        night: '#050505',
+                        day: '#F0F2F5',
+                        primary: '#00A0E9', // Anker Blue
+                        accent: '#FFD700', // Gold
+                    },
+                    animation: {
+                        'spin-slow': 'spin 60s linear infinite',
+                        'spin-reverse': 'spin 80s linear infinite reverse',
+                        'pulse-slow': 'pulse 5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
                 }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // 4. Image Upload Preview
-        function previewImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.className = "aspect-square object-cover rounded shadow-lg animate-pulse";
-                    document.getElementById('preview-area').appendChild(img);
-                }
-                reader.readAsDataURL(file);
             }
         }
     </script>
-</body>
-</html>
+
+    <style>
+        /* 1. 背景：极光星轨系统 */
+        .aurora-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .aurora-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            filter: blur(60px); /* 极光般的朦胧感 */
+            opacity: 0.5;
+            transition: opacity 0.5s ease;
+        }
+
+        /* 暗夜模式极光 */
+        html.dark .ring-1 {
+            width: 120vh; height: 120vh;
+            background: conic-gradient(from 0deg, transparent 0%, #001233 20%, #00A0E9 40%, transparent 60%);
+            animation: spin 60s linear infinite;
+        }
+        html.dark .ring-2 {
+            width: 150vh; height: 150vh;
+            background: conic-gradient(from 180deg, transparent 0%, #3a0ca3 20%, #7209b7 40%, transparent 60%);
+            animation: spin 90s linear infinite reverse;
+        }
+        
+        /* 白昼模式极光 (晨曦色) */
+        html:not(.dark) .ring-1 {
+            width: 120vh; height: 120vh;
+            background: conic-gradient(from 0deg, transparent 0%, #e2e8f0 20%, #bfdbfe 40%, transparent 60%);
+            animation: spin 60s linear infinite;
+            opacity: 0.8;
+        }
+        html:not(.dark) .ring-2 {
+            width: 150vh; height: 150vh;
+            background: conic-gradient(from 180deg, transparent 0%, #fef3c7 20%, #fde68a 40%, transparent 60%);
+            animation: spin 90s linear infinite reverse;
+            opacity: 0.8;
+        }
+
+        /* 2. 磨砂玻璃通用样式 */
+        .glass {
+            background: rgba(20, 20, 20, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        html:not(.dark) .glass {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* 3. 模态框动画 */
+        .modal-enter { opacity: 0; transform: scale(0.95); }
+        .modal-enter-active { opacity: 1; transform: scale(1); transition: all 0.3s ease-out; }
+        .modal-exit { opacity: 1; transform: scale(1); }
+        .modal-exit-active { opacity: 0; transform: scale(0.95); transition: all 0.2s ease-in; }
+
+        /* 隐藏滚动条 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-day text-gray-800 dark:bg-night dark:text-gray-100 transition-colors duration-500 overflow-x-hidden">
+
+    <!-- 背景：极光星轨 -->
+    <div class="aurora-container">
+        <div class="aurora-ring ring-1"></div>
+        <div class="aurora-ring ring-2"></div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 w-full z-40 px-6 py-4 glass border-b-0 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="font-serif text-2xl font-bold tracking-widest hover:text-primary transition cursor-pointer" onclick="window.scrollTo(0,0)">
+                HZ·HUI
+            </div>
+            
+            <div class="flex items-center gap-6">
+                <!-- 菜单 -->
+                <div class="hidden md:flex gap-8 text-xs font-bold tracking-[0.2em]">
+                    <a href="#home" class="hover:text-primary transition" data-key="nav_home">HOME</a>
+                    <a href="#timeline" class="hover:text-primary transition" data-key="nav_timeline">TIMELINE</a>
+                    <a href="#projects" class="hover:text-primary transition" data-key="nav_projects">PROJECTS</a>
+                </div>
+
+                <!-- 功能按钮 -->
+                <div class="flex items-center gap-3 border-l border-gray-300 dark:border-gray-700 pl-6">
+                    <button onclick="toggleLang()" class="text-xs font-bold px-2 py-1 border border-transparent hover:border-gray-500 rounded transition" id="lang-btn">CN</button>
+                    <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-white/10 transition">
+                        <span class="dark:hidden">🌙</span>
+                        <span class="hidden dark:block">☀️</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. Hero Section -->
+    <section id="home" class="min-h-screen flex flex-col justify-center items-center text-center px-4 relative pt-20">
+        <div class="space-y-8 animate-fade-in-up">
+            <p class="text-xs md:text-sm tracking-[0.4em] text-primary uppercase font-bold" data-key="hero_subtitle">
+                The Portfolio of He Zihui
+            </p>
+            <h1 class="font-serif text-5xl md:text-8xl leading-tight bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-blue-600 to-gray-900 dark:from-white dark:via-blue-400 dark:to-gray-400">
+                <span data-key="hero_title_1">Weaving</span><br>
+                <span data-key="hero_title_2">Intelligence</span>
+            </h1>
+            <p class="max-w-xl mx-auto text-gray-600 dark:text-gray-400 font-light leading-relaxed text-sm md:text-base" data-key="hero_desc">
+                Connecting human creativity with AI efficiency. <br>
+                From Journalism to AI Operations, I engineer culture with data and soul.
+            </p>
+            
+            <div class="flex gap-4 justify-center pt-8">
+                <a href="#timeline" class="px-8 py-3 bg-primary text-white rounded-full font-bold text-sm tracking-widest hover:bg-blue-600 transition shadow-lg shadow-blue-500/30" data-key="btn_explore">
+                    EXPLORE JOURNEY
+                </a>
+                <a href="assets/resume.pdf" download class="px-8 py-3 border border-gray-400 dark:border-gray-600 rounded-full font-bold text-sm tracking-widest hover:border-primary hover:text-primary transition" data-key="btn_resume">
+                    DOWNLOAD CV
+                </a>
+            </div>
+        </div>
+        
+        <!-- 滚动指引 -->
+        <div class="absolute bottom-12 animate-bounce">
+            <span class="text-xs tracking-widest opacity-50">SCROLL</span>
+        </div>
+    </section>
+
+    <!-- 2. Internship Timeline (垂直星轨) -->
+    <section id="timeline" class="py-32 px-4 max-w-4xl mx-auto">
+        <h2 class="font-serif text-3xl md:text-4xl text-center mb-20" data-key="section_timeline">Career Timeline</h2>
+        
+        <div class="relative border-l-2 border-gray-200 dark:border-gray-800 ml-4 md:ml-1/2">
+            
+            <!-- Item 1: Anker -->
+            <div class="mb-16 relative pl-8 md:pl-0">
+                <!-- Dot -->
+                <div class="absolute -left-[9px] md:left-1/2 md:-ml-[9px] w-4 h-4 rounded-full bg-primary ring-4 ring-white dark:ring-night z-10"></div>
+                
+                <div class="md:flex md:justify-between items-center group">
+                    <!-- Date (Left on Desktop) -->
+                    <div class="md:w-1/2 md:pr-12 md:text-right mb-2 md:mb-0">
+                        <span class="text-primary font-mono text-sm">2025.10 - 2026.02</span>
+                    </div>
+                    <!-- Content (Right on Desktop) -->
+                    <div class="md:w-1/2 md:pl-12">
+                        <div class="glass p-6 rounded-xl hover:border-primary/50 transition duration-300">
+                            <h3 class="text-xl font-bold mb-1">Anker Innovations (ATIT)</h3>
+                            <p class="text-xs text-primary mb-3 uppercase tracking-wider" data-key="role_anker">AI Operations Intern</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed" data-key="desc_anker">
+                                Lead the "AI Culture Revolution". Designed gamified systems ("PP Gold Rush") and leveraged AIGC tools to boost efficiency by 75%.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 2: Ticknet -->
+            <div class="mb-16 relative pl-8 md:pl-0">
+                <div class="absolute -left-[9px] md:left-1/2 md:-ml-[9px] w-4 h-4 rounded-full bg-gray-400 dark:bg-gray-600 ring-4 ring-white dark:ring-night z-10"></div>
+                <div class="md:flex md:justify-between items-center md:flex-row-reverse group">
+                    <div class="md:w-1/2 md:pl-12 md:text-left mb-
